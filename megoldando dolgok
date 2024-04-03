@@ -1,0 +1,16 @@
+A különböző osztályok összekapcsolása
+A kezdetleges megoldások tovább fejlesztése
+Az IO-handler megvalósítása
+A fileok átrendezése, úgy hogy megfelelő helyeken legyenek a megfelelő fileok
+A GameMasterbe rendezése az osztályoknak úgy, hogy onnan lehessen használni a többi osztályt,
+Az event rendszer átalakítása és kiterjesztése, az előfeltételek megfelelő alkalmazása, az eventeknek legyenek következményei
+A felhasználói felület megvalósítása, a térkép a logrendszer és a group rendszer és az event lebonyolításának megvalósítása
+Egy rendszer ahol eventeket lehet létrehozni, hogy ne kelljen manuálisan írni a jsonoket,
+A procedúrális pályagenerálás változtatása és kiterjesztése objektumokkal, amelyeket egy mezőn belülre lehet rakni.
+Egy főmenü rendszer megvalósítása, a játék állapotának elmentése és betöltése
+Az elmentés kibővítése, úgy, hogy 3 betöltési opciónk legyen
+A seed használatának pontosítása, hogy ugyanazzal a seeddel ugyanazok a dolgok történjenek (persze ha a felhasználó más döntéseket hoz akkor más történjen)
+A Map javítása, hogy ne vigyen el rengeteg erőforrást és ne villogjon
+A map további javítása, lehetőség arra, hogy a megjelenített terület méretét átállítsuk
+Egy config file ahol néhány dolgot be lehet állítani és a játék közben állítható legyen, pl ablak méret, kör sebesség, nehézség stb..
+
