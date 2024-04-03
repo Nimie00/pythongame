@@ -24,4 +24,20 @@ A mentés rendszer kibővítése és a módosított pályákat ignorálja a lead
 A csalás elleni védelem megvalósítása és az autosaving megvalósítása
 A játékfolyamat változtatása, ha a felhasználó átállít valamit beállításokban.
 A Log kibővítése úgy, hogy consoleként is lehessen alkalmazni.
+__init__.py létrehozása
+__main__.py létrehozása ehhez példa: if __name__=="__main__":
+    from python_tactics.start import start
+    start()
 
+
+kép betöltés: def asset_to_file(asset_name):
+    return pkg_resources.resource_filename(
+        __name__,
+        os.path.join("assets", asset_name)
+    )
+
+def load_sprite_asset(name):
+    " Loads png files from the assets folder, with anchor in middle "
+    image = pyglet.image.load(asset_to_file("images/%s.png" % name))
+    image.anchor_x = int(image.width / 2)
+    return image
