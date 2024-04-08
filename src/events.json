@@ -24,6 +24,34 @@
                 "preconditions": {},
                 "rewards": {},
                 "result": "Sikerült elkerülni az összecsapást."
+            },
+            {
+                "id": 3,
+                "description": "Secret!",
+                "preconditions": {},
+                "rewards": {},
+                "result": "Sikerült elkerülni az összecsapást."
+            },
+            {
+                "id": 4,
+                "description": "secret2!",
+                "preconditions": {},
+                "rewards": {},
+                "result": "Sikerült elkerülni az összecsapást."
+            },
+            {
+                "id": 5,
+                "description": "secret3!",
+                "preconditions": {},
+                "rewards": {},
+                "result": "Sikerült elkerülni az összecsapást."
+            },
+            {
+                "id": 6,
+                "description": "secret4!",
+                "preconditions": {},
+                "rewards": {},
+                "result": "Sikerült elkerülni az összecsapást."
             }
         ]
     },
@@ -49,6 +77,35 @@
             {
                 "id": 3,
                 "description": "Túlélésre koncentrálunk.",
+                "preconditions": {},
+                "rewards": {"élelem": 50},
+                "result": "Sikerült kisebb mennyiségű élelmet találni a környéken."
+            }
+        ]
+    }
+    ,
+    {
+        "id": 3,
+        "name": "",
+        "description": "Bementél a nagy kaszinóba, ideje nyerni (real)",
+        "choices": [
+            {
+                "id": 1,
+                "description": "",
+                "preconditions": {"leader_intelligence": ">30"},
+                "rewards": {"élelem": 100},
+                "result": "Sikerült eleget vadásznotok, hogy táplálékot szerezzenek a csoportnak."
+            },
+            {
+                "id": 2,
+                "description": "",
+                "preconditions": {"arany": ">50"},
+                "rewards": {"élelem": 150},
+                "result": "Sikerült élelmet vásárolnotok a faluban."
+            },
+            {
+                "id": 3,
+                "description": "",
                 "preconditions": {},
                 "rewards": {"élelem": 50},
                 "result": "Sikerült kisebb mennyiségű élelmet találni a környéken."

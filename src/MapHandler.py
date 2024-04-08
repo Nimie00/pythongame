@@ -9,11 +9,11 @@ class GameWindow(pyglet.window.Window):
         self.batch = pyglet.graphics.Batch()
 
         self.textures = {
-            "grass": pyglet.resource.image('@resources.images.grass.png'),
-            "forest": pyglet.resource.image("@resources.images.forest.png"),
-            "river": pyglet.resource.image("@resources.images.river.png"),
-            "city": pyglet.resource.image("@resources.images.city.png"),
-            "mountain": pyglet.resource.image("@resources.images.mountain.png")
+            "grass": pyglet.resource.image('grass.png'),
+            "forest": pyglet.resource.image("forest.png"),
+            "river": pyglet.resource.image("river.png"),
+            "city": pyglet.resource.image("city.png"),
+            "mountain": pyglet.resource.image("mountain.png")
         }
 
         # Betöltjük a térképet a terkep.json fájlból

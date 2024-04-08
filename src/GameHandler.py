@@ -15,7 +15,7 @@ class GameHandler:
 
     def start_game(self):
         # Kezdeti beállítások inicializálása
-        self.load_events('../resources/gameplayrelated/events.json')
+        self.load_events('events.json')
         # Események betöltése
 
         # Játék indítása
