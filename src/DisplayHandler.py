@@ -24,8 +24,15 @@ background_sprite.x = (window_width - background_sprite.width) // 2
 background_sprite.y = (window_height - background_sprite.height) // 2
 
 # Felső és alsó címkék
+day_text = "1"
 upper_text = "Felső szöveg"
 desc_text = "Alsó szöveggg"
+
+day_label = pyglet.text.Label(day_text,
+                              font_name='Arial',
+                              font_size=36,
+                              x=background_sprite.x + book_width // 2, y=background_sprite.y + book_height * 1.25,
+                              anchor_x='center', anchor_y='center', color=(255, 200, 0, 255))
 
 upper_label = pyglet.text.Label(upper_text,
                                 font_name='Arial',
@@ -46,6 +53,7 @@ field_width = 0
 field_offset = 0
 fields = {}
 labels = {}
+globaleventid = 1
 selected_field = None
 
 
@@ -56,30 +64,64 @@ def update_event(event_id):
 
 
 def show_active_event():
+    global day_text
     if active_event:
         eventneve = active_event['name']
         eventleiras = active_event['description']
         upper_label.text = eventneve
         desc_label.text = eventleiras
         create_choices(active_event['choices'])
+    return active_event
 
 
-def create_fields(generatedfieldnumber):
-    for i in range(generatedfieldnumber):
-        y = field_offset + i * field_height
+def create_fields(generatedfieldnumber, result):
+    if not result:
+        for i in range(generatedfieldnumber):
+            y = field_offset + i * field_height
+            field = pyglet.shapes.Rectangle(0, y, field_width, field_height, color=(255, 255, 255, 200))
+            field.x = (background_sprite.x + book_width // 2 - field_width // 2)  # Az alsó mezők középre igazítása
+
+            label = pyglet.text.Label(f"{i}. label",
+                                      font_name='Arial',
+                                      font_size=20,
+                                      color=(0, 0, 255, 100),
+                                      x=background_sprite.x + book_width // 2,
+                                      y=y + field_height // 2,
+                                      anchor_x='center', anchor_y='center')
+
+            fields[i] = field
+            labels[i] = label
+    else:
+        y = field_offset + 1 * field_height
         field = pyglet.shapes.Rectangle(0, y, field_width, field_height, color=(255, 255, 255, 200))
         field.x = (background_sprite.x + book_width // 2 - field_width // 2)  # Az alsó mezők középre igazítása
 
-        label = pyglet.text.Label(f"{i}. label",
+        global selected_field, text1
+        event = next((event for event in events if event['id'] == 1), None)
+        choices = event['choices']
+        for choice in choices:
+            if choice['id'] == selected_field:
+                text1 = choice['result']
+
+        label = pyglet.text.Label("továbblépés",
                                   font_name='Arial',
                                   font_size=20,
                                   color=(0, 0, 255, 100),
                                   x=background_sprite.x + book_width // 2,
-                                  y=y + field_height // 2,
+                                  y=y + (field_height // 2),
                                   anchor_x='center', anchor_y='center')
 
-        fields[i] = field
-        labels[i] = label
+        label2 = pyglet.text.Label(text1,
+                                   font_name='Arial',
+                                   font_size=20,
+                                   color=(0, 0, 255, 100),
+                                   x=background_sprite.x + book_width // 2,
+                                   y=y + (field_height // 2) + 200,
+                                   anchor_x='center', anchor_y='center')
+
+        fields['0'] = field
+        labels['0'] = label
+        labels['1'] = label2
 
 
 # A választási lehetőségek megjelenítése
@@ -89,8 +131,7 @@ def create_choices(choices):
     field_height = book_height * 0.8 / num_fields  # Az alsó mezők magassága
     field_width = book_width * 0.8  # Az alsó mezők szélessége
     field_offset = int(book_height * 0.3)  # Az alsó mezők eltolása az ablak tetejétől
-    print(field_offset)
-    create_fields(num_fields)
+    create_fields(num_fields, False)
 
     for i, choice in enumerate(choices):
         if i < num_fields:
@@ -98,6 +139,24 @@ def create_choices(choices):
 
         else:
             break
+
+
+def clearscreen():
+    global fields, labels, num_fields
+    for field in fields.values():
+        print(field)
+        field.delete()
+        del field
+    fields = {}
+    for label in labels.values():
+        label.delete()
+        del label
+    labels = {}
+    num_fields = 0
+
+
+def displayresult():
+    create_fields(1, True)
 
 
 @window.event
@@ -121,9 +180,16 @@ def on_mouse_motion(x, y, dx, dy):
 def on_mouse_press(x, y, button, modifiers):
     if button == mouse.LEFT and selected_field:
         print(f"Kiválasztott mező: {selected_field}")
+        clearscreen()
+        displayresult()
 
-    if button == mouse.LEFT and selected_field == 1:
-        window.close()
+    if button == mouse.LEFT and selected_field == 2 and len(fields) == 1 and len(labels) == 2:
+        global globaleventid, day_text
+        day_text = str(int(day_text)+1)
+        day_label.text = day_text
+        globaleventid += 1
+        clearscreen()
+        update_event(globaleventid)
 
 
 @window.event
@@ -132,11 +198,12 @@ def on_draw():
     background_sprite.draw()
     upper_label.draw()
     desc_label.draw()
+    day_label.draw()
     for field in fields.values():
         field.draw()
     for label in labels.values():
         label.draw()
 
 
-update_event(3)
+update_event(globaleventid)
 pyglet.app.run()
