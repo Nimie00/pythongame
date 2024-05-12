@@ -1,5 +1,6 @@
 import json
 import random
+import os
 
 import numpy as np
 
@@ -102,7 +103,11 @@ class MapGenerator:
             "height": self.height,
             "map": [[tile.terrain for tile in row] for row in self.map]
         }
-        with open(filename, 'w') as file:
+        base_dir = os.path.dirname(os.path.abspath(__file__))  # a jelenlegi fájl helye
+        resources_dir = os.path.join(base_dir, 'resources', 'maps')  # a resources/maps mappa elérési útja
+        os.makedirs(resources_dir, exist_ok=True)  # létrehozza a mappát, ha még nem létezik
+        file_path = os.path.join(resources_dir, filename)  # a teljes fájl elérési útja
+        with open(file_path, 'w') as file:
             json.dump(map_data, file)
 
     def display_map(self):
@@ -115,14 +120,14 @@ class MapGenerator:
                       end="")  # Change color before printing and reset after
                 print()
 
-def generate_map():
-    map_generator = MapGenerator(30, 30, seed=42)  # Setting seed for reproducibility
+def generate_map(szelesseg,magassag,seed,mapneve):
+    map_generator = MapGenerator(szelesseg, magassag, seed=seed)  # Setting seed for reproducibility
     map_generator.generate_basic_map()
     map_generator.generate_forests(5, 4)
     map_generator.generate_mountains(3, 4)
     map_generator.generate_rivers(2)
     map_generator.generate_cities(5, 1, 5)
-    map_generator.save_map("map1")
+    map_generator.save_map(mapneve)
     return map_generator
 
 
