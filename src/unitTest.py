@@ -1,7 +1,6 @@
 import unittest
 from CharacterHandler import Character
 import GameMaster
-import io
 
 class TestCharacter(unittest.TestCase):
     def setUp(self):
