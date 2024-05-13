@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: pythongame
+Version: 0.2
+Summary: Egy egyszerű játék grafikus megvalósítása pythonban
+Home-page: https://github.com/Nimie00/pythongame
+Author: Muhel Nimród Róbert
+Author-email: nimrimi@gmail.com
+Requires-Dist: pygame
