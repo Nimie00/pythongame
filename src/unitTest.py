@@ -1,5 +1,7 @@
 import unittest
 from CharacterHandler import Character
+import GameMaster
+import io
 
 class TestCharacter(unittest.TestCase):
     def setUp(self):
@@ -154,6 +156,51 @@ class TestCharacter(unittest.TestCase):
     def test_set_has_food(self):
         self.char.set_has_food(1)
         self.assertEqual(self.char.get_has_food(), 1)
+
+
+class TestGameMaster(unittest.TestCase):
+    def setUp(self):
+        self.game = GameMaster.GameMaster()
+
+    def test_encounter_character(self):
+        # Teszteljük, hogy az új karakter találkozásakor a reputáció növekszik-e
+        character_name = "New Character"
+        initial_reputation = self.game.met_characters.get(character_name, 0)
+        self.game.encounter_character(character_name)
+        self.assertEqual(self.game.met_characters[character_name], initial_reputation + 1)
+
+    def test_increase_reputation(self):
+        # Teszteljük, hogy az adott karakter reputációja növekszik-e
+        character_name = "Existing Character"
+        self.game.met_characters[character_name] = 5
+        self.game.increase_reputation(character_name)
+        self.assertEqual(self.game.met_characters[character_name], 6)
+
+    def test_decrease_reputation(self):
+        # Teszteljük, hogy az adott karakter reputációja csökken-e
+        character_name = "Existing Character"
+        self.game.met_characters[character_name] = 5
+        self.game.decrease_reputation(character_name)
+        self.assertEqual(self.game.met_characters[character_name], 4)
+
+    def test_create_characters(self):
+        # Teszteljük, hogy létrejönnek-e a karakterek és a lista hossza megfelelő-e
+        self.assertEqual(len(self.game.characters), 0)
+        self.game.create_characters()
+        self.assertEqual(len(self.game.characters), 7)
+
+
+    def test_time_tick(self):
+        # Teszteljük, hogy a time_tick metódus helyesen frissíti-e az időt
+        self.assertEqual(self.game.current_time["hours"], 8)
+        self.assertEqual(self.game.current_time["days"], 0)
+        self.game.time_tick()
+        self.assertEqual(self.game.current_time["hours"], 9)
+        self.game.current_time["hours"] = 23
+        self.game.time_tick()
+        self.assertEqual(self.game.current_time["hours"], 0)
+        self.assertEqual(self.game.current_time["days"], 1)
+
 
 if __name__ == '__main__':
     unittest.main()

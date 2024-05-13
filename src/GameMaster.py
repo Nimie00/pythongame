@@ -23,8 +23,9 @@ class GameMaster:
 
     def encounter_character(self, character_name):
         if character_name not in self.met_characters:
-            self.met_characters[character_name] = 0  # Új karakter hozzáadása a tárolóhoz
-        # Itt lenne az interakció a karakterrel, ami változtatja a reputációt
+            self.met_characters[character_name] = 1  # Új karakter hozzáadása a tárolóhoz
+        else :
+            self.met_characters[character_name] += 1  # Új karakter hozzáadása a tárolóhoz
 
     def increase_reputation(self, character_name):
         if character_name in self.met_characters:
